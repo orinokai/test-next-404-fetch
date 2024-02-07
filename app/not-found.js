@@ -1,17 +1,14 @@
 async function getData() {
-  console.log('fetching data')
-  const res = await fetch(`https://eoeucbdwqdt3ttl.m.pipedream.net`, { next: { revalidate: 60 } })
+  const res = await fetch(`https://kounter.vercel.app/hit/${process.env.COUNT_ID}`, { cache: "no-store" })
   return res.json()
 }
 
 export default async function NotFound() {
-  console.log('rendering not found')
   const data = await getData()
   return (
-    <div>
-      <h2>Not Found</h2>
-      <p>Could not find requested resource</p>
-      <p>{data[0].quote}</p>
-    </div>
+    <>
+      <h1>Hit</h1>
+      <p>The API has been hit {data.count} times</p>
+    </>
   )
 }
